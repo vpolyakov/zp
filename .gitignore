@@ -270,3 +270,6 @@ dmypy.json
 cython_debug/
 
 vacdata/
+.env_bak
+
+.~lock.*
