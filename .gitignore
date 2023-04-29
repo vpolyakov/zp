@@ -76,7 +76,6 @@ fabric.properties
 ### VirtualEnv template
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
-.Python
 [Bb]in
 [Ii]nclude
 [Ll]ib
@@ -84,7 +83,6 @@ fabric.properties
 [Ll]ocal
 [Ss]cripts
 pyvenv.cfg
-.venv
 pip-selfcheck.json
 
 ### JupyterNotebooks template
@@ -208,11 +206,7 @@ docs/_build/
 target/
 
 # Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
+nbooks/*.ipynb
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
