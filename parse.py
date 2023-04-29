@@ -2,9 +2,10 @@ from datetime import date
 
 import pandas as pd
 
-from config import JOBS_FILE
 from hh import HH
 import clearing
+
+JOBS_FILE = 'settings/jobs.csv'
 
 
 def read_vacancies_titles_from_csv(file):

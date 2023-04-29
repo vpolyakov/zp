@@ -2,7 +2,6 @@ import pandas as pd
 import requests
 
 HH_URL = 'https://api.hh.ru/'
-# JOBS_LIST_FILE = 'settings/jobs_ex.csv'
 
 
 class HH:
@@ -14,13 +13,11 @@ class HH:
             search_period=30,
             per_page=100,
             search_field='name',
-            area=79,
-            # jobs_list_file=JOBS_LIST_FILE,
+            area=79,  # Саратов
     ):
 
         self.search_period = search_period
         self.per_page = per_page
-        # self.jobs_list_file = jobs_list_file
         self.search_field = search_field
         self.area = area
         self.col_dtypes = {
@@ -37,24 +34,9 @@ class HH:
             'published_at': 'datetime64[ns]',
         }
 
-    # def read_vacancies_titles_from_csv(self):
-    #     """
-    #     Чтение csv файла с названиями вакансий
-    #     """
-    #     vacancies = pd.read_csv(self.jobs_list_file)
-    #     vacancies = vacancies[vacancies['search'].notna()]
-    #     vacancy_titles = vacancies['title'].to_list()
-    #
-    #     print('Будет произведен анализ следующих вакансий:')
-    #     for title in vacancy_titles:
-    #         print(title)
-    #     print("")
-    #
-    #     return vacancy_titles
-
     def parse_hh_page(self, job, page=0):
         payloads = {
-            'area': self.area,  # 79 - Саратов
+            'area': self.area,
             'text': job,
             'only_with_salary': 'true',
             'employment': 'full',
@@ -64,10 +46,6 @@ class HH:
             'page': page,
         }
         return requests.get(f'{HH_URL}vacancies', params=payloads).json()
-
-    # def get_vacancies_hh_summary(self, job: str) -> str:
-    #     r = self.parse_hh_page(job)
-    #     return f'Поиск по слову: "{job}". Найдено вакансий: {r["found"]}'
 
     def parse_vacancies(self, job: str):
         vacancies = {col: [] for col in self.col_dtypes.keys()}
@@ -120,16 +98,6 @@ class HH:
         vacancy_df.insert(5, 'salary_apr', salary_apr)
         print(job, vacancy_df.shape[0])
         return vacancy_df
-
-    # def get_vacancies_all_jobs(self) -> pd.DataFrame:
-    #     all_vacancies_df_list = []
-    #     for job in self.read_vacancies_titles_from_csv():
-    #         all_vacancies_df_list.append(self.get_vacancies(job))
-    #     all_vacancies_df = pd.concat(all_vacancies_df_list, ignore_index=True)
-    #     all_vacancies_df.sort_values(by=['name', 'employer_name', 'published_at'], ascending=False, inplace=True)
-    #     all_vacancies_df.drop_duplicates(subset=['name', 'employer_id'], keep='first', inplace=True)
-    #     all_vacancies_df.reset_index(drop=True, inplace=True)
-    #     return all_vacancies_df
 
 
 if __name__ == '__main__':
