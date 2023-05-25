@@ -267,3 +267,4 @@ vacdata/
 .env_bak
 
 .~lock.*
+!/nbooks/Статистика ЗП вакансий .ipynb
