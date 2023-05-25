@@ -1,6 +1,7 @@
 openpyxl
-pandas>=1.4.2
-requests>=2.27.1
-XlsxWriter>=3.0.3
+pandas
+requests
+XlsxWriter
 thefuzz
 speedup
+python-Levenshtein
